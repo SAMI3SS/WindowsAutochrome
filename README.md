@@ -1,4 +1,5 @@
 # WindowsAutochrome
+<<<<<<< HEAD
 
 A Chromium profile launcher for Windows with colored themes, designed for penetration testing and security research. Works seamlessly with Burp Suite.
 
@@ -121,3 +122,6 @@ To use with Burp Suite:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+=======
+(autochrome for Windows) Chromium profile launcher for Windows with colored themes and automatic Burp Suite proxy configuration. Perfect for penetration testing and security research.
+>>>>>>> 50dd32dece1b63683f4ae446c71610941d428901
