@@ -1,6 +1,4 @@
 # WindowsAutochrome
-<<<<<<< HEAD
-
 A Chromium profile launcher for Windows with colored themes, designed for penetration testing and security research. Works seamlessly with Burp Suite.
 
 ## Features
