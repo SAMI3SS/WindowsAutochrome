@@ -1,4 +1,5 @@
 # WindowsAutochrome
+
 A Chromium profile launcher for Windows with colored themes, designed for penetration testing and security research. Works seamlessly with Burp Suite.
 
 ## Features
@@ -12,23 +13,27 @@ A Chromium profile launcher for Windows with colored themes, designed for penetr
 
 ## Quick Start
 
+### Installation
 
-### Running
+1. **Clone the repository:**
+```bash
+git clone https://github.com/SAMI3SS/WindowsAutochrome.git
+cd /WindowsAutochrome
+```
 
-
-**Command line** (Recommended)
+2. **Run the launcher:**
 ```bash
 python main.py
 ```
-**Option 1: Double-click `launch.bat`** 
-- Just double-click the file - it works like a regular app
 
-
-On first run, the script will automatically:
+**First run:** The script will automatically:
+- Install required Python packages (customtkinter, pystray, pillow, pywin32)
 - Download Chromium (~100-150 MB)
 - Create 8 colored profiles
-- Create a desktop shortcut
+- Create a desktop shortcut with Chromium icon
 - Launch Chromium with profile picker
+
+**After first run:** Simply double-click the desktop shortcut to launch Chromium. No need to run Python commands again - the shortcut works like a regular application.
 
 ## Usage
 
@@ -91,7 +96,7 @@ WindowsAutochrome is designed to work seamlessly with Burp Suite:
 
 To use with Burp Suite:
 1. Start Burp Suite and ensure the proxy is running on 127.0.0.1:8080
-2. Launch WindowsAutochrome: `python main.py` 
+2. Launch WindowsAutochrome: `python main.py` or double-click the desktop shortcut
 3. Select any profile - traffic will automatically route through Burp Suite
 
 ## Notes
@@ -100,6 +105,7 @@ To use with Burp Suite:
 - All browser data is isolated per profile
 - Proxy is pre-configured for Burp Suite (127.0.0.1:8080)
 - Profiles are created automatically with colored themes
+- **Desktop shortcut is created automatically** - After first run, you can use the desktop shortcut instead of running Python commands
 
 ## License
 
