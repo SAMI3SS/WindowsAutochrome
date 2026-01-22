@@ -12,21 +12,17 @@ A Chromium profile launcher for Windows with colored themes, designed for penetr
 
 ## Quick Start
 
-### Installation
-
-```bash
-pip install customtkinter pystray pillow pywin32
-```
 
 ### Running
 
-**Option 1: Double-click `launch.bat`** 
-- Just double-click the file - it works like a regular app
 
-**Option 2: Command line** (Recommended)
+**Command line** (Recommended)
 ```bash
 python main.py
 ```
+**Option 1: Double-click `launch.bat`** 
+- Just double-click the file - it works like a regular app
+
 
 On first run, the script will automatically:
 - Download Chromium (~100-150 MB)
@@ -38,21 +34,9 @@ On first run, the script will automatically:
 
 ### Normal Mode (Profile Picker)
 ```bash
-python main.py
+python main.py (Recommended)
 ```
 Launches Chromium showing all 8 colored profiles. Click any profile to start browsing.
-
-### Launch Specific Profile
-```bash
-python main.py --profile Red
-```
-Launches Chromium directly with the specified profile.
-
-### System Tray Mode
-```bash
-python main.py --tray
-```
-Runs in system tray. Right-click the icon to select a profile.
 
 ### Repair Profiles
 ```bash
@@ -107,7 +91,7 @@ WindowsAutochrome is designed to work seamlessly with Burp Suite:
 
 To use with Burp Suite:
 1. Start Burp Suite and ensure the proxy is running on 127.0.0.1:8080
-2. Launch WindowsAutochrome: `python main.py` or double-click `launch.bat`
+2. Launch WindowsAutochrome: `python main.py` 
 3. Select any profile - traffic will automatically route through Burp Suite
 
 ## Notes

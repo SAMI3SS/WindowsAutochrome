@@ -70,12 +70,19 @@ THEMES_UNPACK_DIRS = []  # legacy (unused); keep empty to avoid unexpected behav
 
 def debug_log(message: str):
     """Write debug message to both stdout and the debug log file."""
-    print(message)
-    sys.stdout.flush()
+    # Print to stdout if available (may be None when running with pythonw.exe)
+    try:
+        if sys.stdout is not None:
+            print(message)
+            sys.stdout.flush()
+    except Exception:
+        pass
+    
+    # Always write to log file
     try:
         with open(DEBUG_LOG, 'a', encoding='utf-8') as f:
             f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {message}\n")
-    except:
+    except Exception:
         pass
 
 # Chromium download URLs (Autochrome logic)
@@ -545,6 +552,8 @@ def ensure_chrome_executable(progress_callback=None):
         debug_log(f"Chromium installation completed: {chrome_exe}")
         if progress_callback:
             progress_callback(100, 0, 0, "Installation complete!")
+            # Print newline after progress updates
+            print()  # New line after progress updates
         return chrome_exe
     
     error_msg = "Chromium extraction failed!"
@@ -1826,8 +1835,9 @@ def check_and_setup():
             def progress_callback(percent, downloaded=0, total=0, status=""):
                 # Log to file and console
                 msg = f"Chromium download: {percent}% - {status}"
+                # Use \r to update same line, flush to ensure immediate display
+                print(f"\r{msg}", end='', flush=True)
                 if percent % 10 == 0 or status:
-                    print(msg)
                     debug_log(msg)
             
             chrome_path = ensure_chrome_executable(progress_callback)
@@ -1840,8 +1850,11 @@ def check_and_setup():
                     debug_log("Chromium found in bin/ after download attempt")
             
             if chrome_path:
+                # Print newline after progress updates
+                print()  # New line after progress updates
                 debug_log(f"Chromium download completed: {chrome_path}")
             else:
+                print()  # New line after progress updates
                 debug_log("Chromium download failed")
         
         # 3. Seed profiles (create all profiles with themes)
@@ -2010,10 +2023,13 @@ def main():
                 progress_event = Event()
 
                 def progress_callback(percent, downloaded=0, total=0, status=""):
-                    if percent % 10 == 0:
-                        print(f"Progress: {percent}% - {status}")
+                    # Use \r to update same line, flush to ensure immediate display
+                    msg = f"Progress: {percent}% - {status}"
+                    print(f"\r{msg}", end='', flush=True)
 
                 chrome_path = ensure_chrome_executable(progress_callback)
+                # Print newline after progress updates
+                print()  # New line after progress updates
                 if not chrome_path:
                     print("Chromium could not be downloaded/installed!")
                     return
@@ -2090,6 +2106,14 @@ def main():
         import traceback
         error_msg = f"An error occurred:\n{str(e)}\n\n{traceback.format_exc()}"
         print(error_msg)
+        debug_log(error_msg)
+        # Show error message to user
+        try:
+            messagebox.showerror("WindowsAutochrome Error", f"An error occurred:\n\n{str(e)}\n\nCheck debug.log for details.")
+        except:
+            pass
+        # Wait a bit so user can read the error
+        time.sleep(3)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,34 @@
+
+--------------------------------------------------------------------------------
+2026-01-22 22:48:19
+Traceback (most recent call last):
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 2086, in main
+    cmd, env = build_chrome_command(chrome_path)
+               ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 941, in build_chrome_command
+    setup_all_profiles()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 895, in setup_all_profiles
+    create_profile_preferences(profile_path, profile_name)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 735, in create_profile_preferences
+    debug_log(f"\n[DEBUG] Creating theme extension for profile: {profile_name}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 74, in debug_log
+    sys.stdout.flush()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'flush'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 2113, in <module>
+    main()
+    ~~~~^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 2102, in main
+    debug_log(error_msg)
+    ~~~~~~~~~^^^^^^^^^^^
+  File "D:\Prog\autochromeforwin\WindowsAutochrome\main.py", line 74, in debug_log
+    sys.stdout.flush()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'flush'
