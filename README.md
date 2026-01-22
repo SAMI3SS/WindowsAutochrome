@@ -11,6 +11,8 @@ A Chromium profile launcher for Windows with colored themes, designed for penetr
 - **Native Profile Picker** - Uses Chromium's built-in profile selection
 - **System Tray Support** - Run in background with tray icon
 
+![Profile Picker](screenshots/profile_picker.png)
+
 ## Quick Start
 
 ### Installation
@@ -67,6 +69,10 @@ Available profiles:
 - **Cyan** - #00BCD4
 - **White** - #FFFFFF
 
+![Colored Browser Window](screenshots/colored_browser.png)
+
+![Profile Selection Menu](screenshots/profile_menu.png)
+
 ## Project Structure
 
 ```
@@ -76,6 +82,7 @@ WindowsAutochrome/
 ├── launch.vbs              # Silent launcher (no terminal)
 ├── create_shortcut.py      # Desktop shortcut creator
 ├── install_tray.py         # System tray installer
+├── screenshots/            # Screenshots directory
 └── README.md              # This file
 ```
 
