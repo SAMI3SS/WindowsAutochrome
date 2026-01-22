@@ -1,0 +1,12 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Python files
+*.py text eol=lf
+
+# Batch files (Windows line endings)
+*.bat text eol=crlf
+*.vbs text eol=crlf
+
+# Markdown files
+*.md text eol=lf
