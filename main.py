@@ -519,9 +519,13 @@ def ensure_chrome_executable(progress_callback=None):
             overall_p = 5 + int(p * 0.6)
             status = s or f"Downloading: {p}%"
             progress_callback(overall_p, d, t, status)
-        # Also log to debug
+        # Log to debug only every 10% to avoid spam
         if p % 10 == 0:
-            debug_log(f"Download progress: {p}% - {s}")
+            try:
+                with open(DEBUG_LOG, 'a', encoding='utf-8') as f:
+                    f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Download progress: {p}% - {s}\n")
+            except:
+                pass
     
     debug_log(f"Starting download for version {version}...")
     zip_path = download_chromium(version, download_progress if progress_callback else None)
@@ -541,9 +545,13 @@ def ensure_chrome_executable(progress_callback=None):
             overall_p = 65 + int(p * 0.35)
             status = s or f"Installing: {p}%"
             progress_callback(overall_p, d, t, status)
-        # Also log to debug
+        # Log to debug only every 10% to avoid spam
         if p % 10 == 0:
-            debug_log(f"Extraction progress: {p}% - {s}")
+            try:
+                with open(DEBUG_LOG, 'a', encoding='utf-8') as f:
+                    f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Extraction progress: {p}% - {s}\n")
+            except:
+                pass
     
     debug_log("Extracting Chromium...")
     chrome_exe = extract_chromium(zip_path, extract_progress if progress_callback else None)
@@ -1836,9 +1844,19 @@ def check_and_setup():
                 # Log to file and console
                 msg = f"Chromium download: {percent}% - {status}"
                 # Use \r to update same line, flush to ensure immediate display
-                print(f"\r{msg}", end='', flush=True)
+                # Clear line first, then write (handles line length differences)
+                if sys.stdout is not None:
+                    try:
+                        print(f"\r{' ' * 80}\r{msg}", end='', flush=True)
+                    except:
+                        pass
+                # Log to file only every 10% to avoid spam
                 if percent % 10 == 0 or status:
-                    debug_log(msg)
+                    try:
+                        with open(DEBUG_LOG, 'a', encoding='utf-8') as f:
+                            f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {msg}\n")
+                    except:
+                        pass
             
             chrome_path = ensure_chrome_executable(progress_callback)
             
@@ -2025,7 +2043,12 @@ def main():
                 def progress_callback(percent, downloaded=0, total=0, status=""):
                     # Use \r to update same line, flush to ensure immediate display
                     msg = f"Progress: {percent}% - {status}"
-                    print(f"\r{msg}", end='', flush=True)
+                    # Clear line first, then write (handles line length differences)
+                    if sys.stdout is not None:
+                        try:
+                            print(f"\r{' ' * 80}\r{msg}", end='', flush=True)
+                        except:
+                            pass
 
                 chrome_path = ensure_chrome_executable(progress_callback)
                 # Print newline after progress updates
