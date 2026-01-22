@@ -15,8 +15,60 @@ import urllib.parse
 import threading
 import json
 import time
-import customtkinter as ctk
-from tkinter import messagebox
+
+# Check and install required packages automatically
+def check_and_install_dependencies():
+    """Check if required packages are installed, install them if missing."""
+    required_packages = {
+        'customtkinter': 'customtkinter',
+        'pystray': 'pystray',
+        'PIL': 'pillow',
+        'win32com': 'pywin32'
+    }
+    
+    missing_packages = []
+    for module_name, package_name in required_packages.items():
+        try:
+            if module_name == 'PIL':
+                __import__('PIL')
+            elif module_name == 'win32com':
+                __import__('win32com.client')
+            else:
+                __import__(module_name)
+        except ImportError:
+            missing_packages.append(package_name)
+    
+    if missing_packages:
+        print("Installing required packages...")
+        print(f"Missing: {', '.join(missing_packages)}")
+        try:
+            subprocess.check_call([
+                sys.executable, '-m', 'pip', 'install', '--quiet', '--upgrade'
+            ] + missing_packages)
+            print("Packages installed successfully!")
+            # Reload modules after installation
+            import importlib
+            importlib.invalidate_caches()
+        except subprocess.CalledProcessError as e:
+            print(f"Error installing packages: {e}")
+            print("Please install manually: pip install " + " ".join(missing_packages))
+            return False
+    
+    return True
+
+# Install dependencies before importing them
+if not check_and_install_dependencies():
+    print("Warning: Some packages could not be installed automatically.")
+    print("Please install manually: pip install customtkinter pystray pillow pywin32")
+
+# Now import the packages
+try:
+    import customtkinter as ctk
+    from tkinter import messagebox
+except ImportError:
+    print("ERROR: customtkinter not available. Please install: pip install customtkinter")
+    sys.exit(1)
+
 from pathlib import Path
 try:
     import pystray
