@@ -22,10 +22,10 @@ pip install customtkinter pystray pillow pywin32
 
 ### Running
 
-**Option 1: Double-click `launch.bat`** (Recommended)
+**Option 1: Double-click `launch.bat`** 
 - Just double-click the file - it works like a regular app
 
-**Option 2: Command line**
+**Option 2: Command line** (Recommended)
 ```bash
 python main.py
 ```
